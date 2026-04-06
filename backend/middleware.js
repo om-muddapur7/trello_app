@@ -1,4 +1,7 @@
 const jwt = require('jsonwebtoken');
+require("dotenv").config();
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 function authMiddleware(req, res, next){
     const authHeader = req.headers.authorization;
@@ -10,7 +13,7 @@ function authMiddleware(req, res, next){
 
     const token = authHeader.split(" ")[1];
 
-    const decoded = jwt.verify(token, "trello_password")
+    const decoded = jwt.verify(token, JWT_SECRET)
     const userId = decoded.userId;
 
     if(userId){
