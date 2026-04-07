@@ -4,62 +4,10 @@ app.use(express.json());
 
 const jwt = require('jsonwebtoken');
 const {authMiddleware} = require('./middleware.js')
-const {userModel, organizationModel} = require('./models.js')
+const {userModel, organizationModel, boardModel, issueModel} = require('./models.js')
 require("dotenv").config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
-
-//database Schemas----------------------------------------------------------------------------------
-
-let BOARD_ID = 1;
-let ISSUES_ID = 1;
-
-//users data
-const USERS = [
-    {
-        id: 1,
-        username: "om",
-        password: "1234"
-    },
-    {
-        id: 2,
-        username: "raman",
-        password: "5678"
-    }
-];
-
-//org 
-const ORGANIZATIONS = [
-    {
-        id: 1,
-        title: "100xdevs",
-        description: "learning coding platform",
-        admin: 1,
-        members: [2]
-    }
-];
-
-//board
-const BOARDS = [
-    {
-        id: 1,
-        title: "100x school website",
-        organizationId: 1
-    }
-];
-
-//issues
-const ISSUES = [
-    {
-        id: 1,
-        title: "Add dark mode",
-        boardId: 1,
-        state: "IN_PROGRESS" // IN_PROGRESS, NEXT_UP, DONE, ARCHIEVED
-    }
-];
-
-// --------------------------------------------------------------------------------------------------
-
 
 //end point -----------------------------------------------------------------------------------------
 
@@ -178,21 +126,23 @@ app.post("/add-mem-to-organization", authMiddleware,  async (req, res) => {
 })
 
 //add boards
-app.post("/board", authMiddleware, (req, res) => {
+app.post("/board", authMiddleware, async (req, res) => {
     const userId = req.userId;
-    const organizationId = parseInt(req.body.organizationId)
+    const organizationId = req.body.organizationId;
 
-    const organization = ORGANIZATIONS.find(org => org.id === organizationId);
-    if(!organization || organization.admin.toString() != userId){
+    const organization = await organizationModel.findOne({
+        _id: organizationId
+    })
+
+    if(!organization){
         return res.status(403).json({
-            messgae: "Either org is not there or person is not admin"
+            messgae: "org is not there"
         })
     }
 
-    BOARDS.push({
-        id: BOARD_ID++,
+    const newBoard = await boardModel.create({
         title: req.body.title,
-        organizationId
+        organizationId: organizationId
     })
 
     res.json({
@@ -202,11 +152,14 @@ app.post("/board", authMiddleware, (req, res) => {
 })
 
 // add or switch issues
-app.post("/issue", authMiddleware, (req, res) => {
-    const boardId = parseInt(req.body.boardId);
+app.post("/issue", authMiddleware, async (req, res) => {
+    const boardId = req.body.boardId;
     const state = req.body.state;
 
-    const board = BOARDS.find(brd => brd.id === boardId);
+    const board = await boardModel.findOne({
+        _id: boardId
+    });
+
     if(!board){
         return res.status(403).json({
             message: "Board not there"
@@ -218,11 +171,10 @@ app.post("/issue", authMiddleware, (req, res) => {
         return res.status(400).json({ message: "Invalid state" });
     }
 
-    ISSUES.push({
-        id: ISSUES_ID++,
+    const newIssue = await issueModel.create({
         title: req.body.title,
-        boardId,
-        state: req.body.state
+        boardId: boardId,
+        state: state
     })
 
     res.json({
@@ -266,33 +218,40 @@ app.get("/organization", authMiddleware, async (req, res) => {
 
 
 //display boards as per orgID
-app.get("/boards", authMiddleware, (req, res) => {
+app.get("/boards", authMiddleware, async (req, res) => {
     const userId = req.userId;
-    const organizationId = parseInt(req.query.organizationId);
+    const organizationId = req.query.organizationId;
 
-    const organization = ORGANIZATIONS.find(org => org.id === organizationId);
+    const organization = await organizationModel.findOne({
+        _id: organizationId
+    })
+
     if(!organization){
         res.status(411).json({
-            message: "Either org doesnt exist or you are not the admin"
+            message: "Either org doesnt exist"
         })
         return;
     }
 
-    const boards = BOARDS.filter(brd => brd.organizationId === organizationId);
+    const boards = await boardModel.find({
+        organizationId: organizationId
+    })
 
     res.json({
-        boards: {
-            ...boards
-        }
+        boards: boards
     })
+
 })
 
 //display issues
-app.get("/issues", authMiddleware, (req, res) => {
+app.get("/issues", authMiddleware, async (req, res) => {
     const userId = req.userId;
-    const boardId = parseInt(req.query.boardId);
+    const boardId = req.query.boardId;
 
-    const board = BOARDS.find(brd => brd.id === boardId);
+    const board = await boardModel.findOne({
+        _id: boardId
+    })
+
     if(!board){
         res.status(411).json({
             message: "board doesnt exist"
@@ -300,51 +259,57 @@ app.get("/issues", authMiddleware, (req, res) => {
         return;
     }
 
-    const issues = ISSUES.filter(iss => iss.id === boardId);
+    const issues = await issueModel.find({
+        boardId: boardId
+    })
 
     res.json({
-        issues: {
-            ...issues
-        }
+        issues: issues
     })
 })
 
 //display mems of org
-app.get("/members", authMiddleware, (req, res) => {
+app.get("/members", authMiddleware, async (req, res) => {
     const userId = req.userId;
-    const organizationId = parseInt(req.query.organizationId);
+    const organizationId = req.query.organizationId;
 
-    const organization = ORGANIZATIONS.find(org => org.id === organizationId);
+   const organization = await organizationModel.findOne({
+        _id: organizationId
+    })
+
     if(!organization){
         res.status(411).json({
-            message: "Either org doesnt exist or you are not the admin"
+            message: "org doesnt exist"
         })
         return;
     }
 
+    const users = await userModel.find({
+        _id: {$in: organization.members}
+    }).select("_id username")
+
+    const members = users.map(user => ({
+        id: user._id,
+        username: user.username
+    }));
+
     res.json({
-        organization: {
-            members: organization.members.map(memberId => {
-                const user = USERS.find(user => user.id === memberId);
-                return{
-                    id: user.id,
-                    username: user.username
-                }
-            })
-        }
-    })
+        members: members
+    });
+
 })
 
 
 //UPDATE
 //change status of issue
-app.put("/issues", authMiddleware, (req, res) => {
-    const issueId = parseInt(req.body.issueId);
-    const boardId = parseInt(req.body.boardId);
-
+app.put("/issues", authMiddleware, async (req, res) => {
+    const issueId = req.body.issueId;
+    const boardId = req.body.boardId;
     const newState = req.body.newState;
 
-    const board = BOARDS.find(brd => brd.id === boardId);
+    const board = await boardModel.findOne({
+        _id: boardId
+    })
     if(!board){
         res.status(411).json({
             message: "board doesnt exist"
@@ -352,7 +317,9 @@ app.put("/issues", authMiddleware, (req, res) => {
         return;
     }
 
-    const issue = ISSUES.find(iss => iss.id === issueId);
+    const issue = await issueModel.findOne({
+        _id: issueId
+    })
     if(!issue){
         res.status(411).json({
             message: "issue doesnt exist"
@@ -360,7 +327,7 @@ app.put("/issues", authMiddleware, (req, res) => {
         return;
     }
 
-    if (issue.boardId !== boardId) {
+    if (issue.boardId.toString() !== boardId) {
         return res.status(400).json({ message: "Issue does not belong to this board" });
     }
 
@@ -370,6 +337,7 @@ app.put("/issues", authMiddleware, (req, res) => {
     }
 
     issue.state = newState;
+    await issue.save();
 
     res.status(200).json({
         message: "Issue updated successfully",

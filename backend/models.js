@@ -17,10 +17,25 @@ const organizationSchema = mongoose.Schema({
     members: [mongoose.Types.ObjectId]
 })
 
+const boardSchema = mongoose.Schema({
+    title: String,
+    organizationId: mongoose.Types.ObjectId
+})
+
+const issueSchema = mongoose.Schema({
+    title: String,
+    boardId: mongoose.Types.ObjectId,
+    state: String
+})
+
 const organizationModel = mongoose.model("organizations", organizationSchema);
 const userModel = mongoose.model("users", userSchema);
+const boardModel = mongoose.model("boards", boardSchema);
+const issueModel = mongoose.model("issues", issueSchema);
 
 module.exports = {
     organizationModel,
-    userModel
+    userModel,
+    boardModel,
+    issueModel
 }
