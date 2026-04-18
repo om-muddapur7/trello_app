@@ -4,14 +4,14 @@ require("dotenv").config();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 function authMiddleware(req, res, next){
-    const authHeader = req.headers.authorization;
+    const authHeader = req.headers.token;
     if (!authHeader) {
         return res.status(401).json({
             message: "No token provided"
         });
     }
 
-    const token = authHeader.split(" ")[1];
+    const token = authHeader;
 
     const decoded = jwt.verify(token, JWT_SECRET)
     const userId = decoded.userId;

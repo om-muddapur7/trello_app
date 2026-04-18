@@ -73,7 +73,7 @@ app.post("/signin", async (req, res) => {
 
 //Authencated routes - middleware
 // add organizations
-app.post("/organization",authMiddleware, async (req, res) => {
+app.post("/add_organization",authMiddleware, async (req, res) => {
     const userId = req.userId;
 
     const newOrg = await organizationModel.create({
@@ -190,38 +190,44 @@ app.post("/issue", authMiddleware, async (req, res) => {
 })
 
 //READ
-//display orgs
-app.get("/organization", authMiddleware, async (req, res) => {
+//display orgs (JSON API — page is served at GET /organization)
+app.get("/api/organization", authMiddleware, async (req, res) => {
     const userId = req.userId;
-    const organizationId = req.query.organizationId;
 
-    const organization = await organizationModel.findOne({
-        _id: organizationId
-    })
+    const organizations = await organizationModel.find({
+        admin: userId
+    });
 
-    if(!organization || organization.admin.toString() != userId){
-        res.status(411).json({
-            message: "Either org doesnt exist or you are not the admin"
-        })
-        return;
+    if (!organizations || organizations.length === 0) {
+        return res.status(411).json({
+            message: "No organizations found"
+        });
     }
 
-    const members = await userModel.find({
-        _id: { $in: organization.members }
-    })
+    const result = [];
 
-    res.json({
-        organization: {
-            title: organization.title,
-            description: organization.description,
+    for (let i = 0; i < organizations.length; i++) {
+        const org = organizations[i];
+
+        const members = await userModel.find({
+            _id: { $in: org.members }
+        });
+
+        result.push({
+            title: org.title,
+            description: org.description,
+            admin: org.admin,
             members: members.map(m => ({
                 username: m.username,
                 id: m._id
             }))
-        }
-    })
+        });
+    }
 
-})
+    res.json({
+        organizations: result   
+    });
+});
 
 
 //display boards as per orgID
@@ -402,6 +408,10 @@ app.get("/signup", (req, res) => {
 
 app.get("/signin", (req, res) => {
     res.sendFile(path.join(frontend_path, "signin.html"));
+})
+
+app.get("/organization", (req, res) => {
+    res.sendFile(path.join(frontend_path, "organization.html"));
 })
 
 const PORT = process.env.PORT || 3000;

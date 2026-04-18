@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Organization</title>
+
+    <style>
+      body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #f0fdfa);
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        #title {
+            text-align: center;
+            color: #222;
+            margin-bottom: 30px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 80px;
+            padding: 10px;
+        }
+
+        #org-card {
+            background: white;
+            border: 2px solid #14b8a6;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        #org-card:hover{
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            background: #14b8a6;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-body h3 {
+            margin: 6px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .card-body ul {
+            padding-left: 18px;
+            margin-top: 8px;
+        }
+
+        .card-body li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        button {
+            background: red;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        button:hover {
+            background: #b42222;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="title">Organizations</h1>
+
+        <div class="cards" id="cards">
+            
+        </div>
+    </div>
+
+    <script defer>
+
+        async function getOrgs(){
+            try{
+                const response = await axios.get(`${window.location.origin}/api/organization`, {
+                    headers: {
+                        token: localStorage.getItem("token")
+                    }
+                });
+
+                const org = response.data.organizations;
+
+                for(let i=0; i<org.length; i++){
+                    document.getElementById("cards").innerHTML += `
+                        <div id="org-card">
+                            <div class="card-header">
+                                Organization ${i + 1}
+                            </div>
+
+                            <div class="card-body">
+                                <h3><b>Title:</b>  ${org[i].title}</h3> 
+                                <h3><b>Description:</b>  ${org[i].description}</h3>
+                                <h3><b>Admin ID:</b>  ${org[i].admin}</h3> 
+                                <h3><b>Members</b></h3>
+                                <ul>
+                                    ${org[i].members.map(m => `
+                                        <li data-id="${m.id}">
+                                            ${m.username}
+                                            <button onclick="removeMember('${m.id}')">Remove</button>
+                                        </li>
+                                    `).join("")}
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            catch(error){
+                console.log("Fetch Org's failed", error);
+                alert('Something went wrong.');
+            }
+        }
+
+        getOrgs();
+
+    </script>
+</body>
+</html>
