@@ -90,9 +90,11 @@
 
                 const brd = response.data.boards;
 
+                console.log(brd);
+
                 for(let i=0; i<brd.length; i++){
                     document.getElementById("cards").innerHTML += `
-                        <div id="brd-card" onclick="openBrd('${brd[i].id}')">
+                        <div id="brd-card" onclick="openBoard('${brd[i]._id}')">
                             <div class="card-header">
                                 Board ${i + 1}
                             </div>
@@ -109,6 +111,11 @@
                 console.log("Fetch Board failed", error);
                 alert('Something went wrong.');
             }
+        }
+
+        function openBoard(brdId){
+            alert("Opening Board ", brdId);
+            window.location.href = `issues.html?brdId=${brdId}`;
         }
 
         getBoards();

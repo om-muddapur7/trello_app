@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Issues</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: #f4f6f8;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        #title {
+            text-align: center;
+            color: #222;
+            margin-bottom: 20px;
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px; 
+            align-items: flex-start;
+        }
+
+        .TODO, .IN_PROGRESS, .DONE {
+            flex: 1;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden; 
+            min-height: 300px;
+        }
+
+        .card-header {
+            text-align: center;
+            background: #ff4d4f;
+            color: white;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .TODO .card-header {
+            background: #ff4d4f;
+        }
+
+        .IN_PROGRESS .card-header {
+            background: #faad14;
+        }
+
+        .DONE .card-header {
+            background: #52c41a;
+        }
+
+        .card-body {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .issue-card {
+            background: #fafafa;
+            border-radius: 10px;
+            padding: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            cursor: pointer;
+        }
+
+        .issue-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+        }
+
+        .issue-card .card-header {
+            background: #1677ff;
+            border-radius: 8px;
+            font-size: 14px;
+            padding: 8px;
+            margin-bottom: 8px;
+        }
+
+        .issue-card h3 {
+            margin: 4px 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h1 id="title">Issues</h1>
+
+        <div class="cards" id="cards">
+            <div class="TODO">
+                <div class="card-header">
+                    <h1>TODO</h1>
+                </div>
+
+                <div class="card-body" id="TODO-body">
+                </div>
+                
+            </div>
+
+            <div class="IN_PROGRESS">
+                <div class="card-header">
+                    <h1>IN_PROGRESS</h1>
+                </div>
+
+                <div class="card-body" id="IN_PROGRESS-body">
+                </div>
+                
+            </div>
+
+            <div class="DONE">
+                <div class="card-header">
+                    <h1>DONE</h1>
+                </div>
+
+                <div class="card-body" id="DONE-body">
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function getBoardId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get("brdId");
+        }
+
+        async function getIssues(){
+            const brdId = getBoardId();
+
+            try{
+                const response = await axios.get(`${window.location.origin}/api/issues/?boardId=${brdId}`, {
+                    headers: {
+                        token: localStorage.getItem("token")
+                    }
+                })
+
+                const issue_data = response.data.issues;
+
+                const todoContainer = document.getElementById("TODO-body");
+                const progressContainer = document.getElementById("IN_PROGRESS-body");
+                const doneContainer = document.getElementById("DONE-body");
+
+                for (let i = 0; i < issue_data.length; i++) {
+                    const issue = issue_data[i];
+
+                    const cardHTML = `
+                        <div class="issue-card">
+                            <div class="card-header">
+                                Issue ${i + 1}
+                            </div>
+
+                            <div class="card-body">
+                                <h3><b>Title:</b> ${issue.title}</h3> 
+                                <h3><b>Board_Id:</b> ${issue.boardId}</h3>
+                                <h3><b>State:</b> ${issue.state}</h3>
+                            </div>
+                        </div>
+                    `;
+
+                    if (issue.state === "TODO") {
+                        todoContainer.innerHTML += cardHTML;
+                    } else if (issue.state === "IN_PROGRESS") {
+                        progressContainer.innerHTML += cardHTML;
+                    } else if (issue.state === "DONE") {
+                        doneContainer.innerHTML += cardHTML;
+                    }
+                }
+
+            }
+            catch(error){
+                console.log("Fetch Board failed", error);
+                alert('Something went wrong.');
+            }
+        }
+
+        getIssues();
+    </script>
+
+</body>
+</html>

@@ -258,7 +258,7 @@ app.get("/api/boards", authMiddleware, async (req, res) => {
 })
 
 //display issues
-app.get("/issues", authMiddleware, async (req, res) => {
+app.get("/api/issues", authMiddleware, async (req, res) => {
     const userId = req.userId;
     const boardId = req.query.boardId;
 
@@ -417,6 +417,10 @@ app.get("/organization", (req, res) => {
 
 app.get("/board", (req, res) => {
     res.sendFile(path.join(frontend_path, "board.html"));
+})
+
+app.get("/issues", (req, res) => {
+    res.sendFile(path.join(frontend_path, "issues.html"));
 })
 
 const PORT = process.env.PORT || 3000;
