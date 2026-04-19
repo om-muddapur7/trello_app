@@ -1,0 +1,256 @@
+body {
+	margin: 0;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	min-height: 100vh;
+	background: linear-gradient(135deg, #0f172a, #1e293b, #020617);
+}
+
+.container {
+	padding: 20px;
+}
+
+#title {
+	text-align: center;
+	font-size: 42px;
+	font-weight: 700;
+	margin-bottom: 30px;
+
+	background: #72b1fe;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+
+	text-shadow: 0 4px 20px rgba(96, 165, 250, 0.25);
+}
+
+.cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+	gap: 30px;
+	padding: 10px;
+}
+
+#org-card {
+	background: white;
+	border-radius: 14px;
+	overflow: hidden;
+
+	border: 1px solid #1677ff;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+
+	transition: all 0.25s ease;
+}
+
+#org-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+	background: linear-gradient(135deg, #1677ff, #4096ff);
+	color: white;
+	padding: 15px;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.card-body {
+	padding: 15px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.card-body h3 {
+	margin: 4px 0;
+	font-size: 14px;
+	color: #333;
+}
+
+.card-body ul {
+	padding-left: 0;
+	margin-top: 6px;
+}
+
+.card-body li {
+	list-style: none;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: #f9fafb;
+	padding: 6px 10px;
+	border-radius: 6px;
+	font-size: 13px;
+}
+
+button {
+	border: none;
+	border-radius: 8px;
+	padding: 6px 12px;
+	font-size: 12px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.card-body li button {
+	background: #ff4d4f;
+	color: white;
+}
+
+.card-body li button:hover {
+	background: #d9363e;
+}
+
+#addMembtn {
+	background: #1677ff;
+	color: white;
+}
+
+#addMembtn:hover {
+	background: #0958d9;
+}
+
+#delOrgbtn {
+	background: #111827;
+	color: white;
+}
+
+#delOrgbtn:hover {
+	background: #000;
+}
+
+.card-body > button {
+	width: 100%;
+	margin-top: 5px;
+}
+
+#org-card-input {
+	background: #f9fbff;
+	border: 2px dashed #1677ff;
+	border-radius: 14px;
+	overflow: hidden;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card-header-input {
+	background: linear-gradient(135deg, #1677ff, #4096ff);
+	color: white;
+	padding: 15px;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.card-body-input {
+	padding: 15px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.input-field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.input-field label {
+	font-size: 13px;
+	font-weight: 600;
+	color: #444;
+}
+
+.input-field input {
+	padding: 10px 12px;
+	border-radius: 8px;
+	border: 1.5px solid #ccc;
+	outline: none;
+	font-size: 14px;
+	background: #fafafa;
+	transition: all 0.2s ease;
+}
+
+.input-field input:focus {
+	border-color: #1677ff;
+	background: #fff;
+	box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.1);
+}
+
+.input-field input:hover {
+	border-color: #888;
+}
+
+#submitbtn {
+	background: linear-gradient(135deg, #22c55e, #16a34a);
+	color: white;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 10px;
+}
+
+#submitbtn:hover {
+	transform: scale(1.03);
+}
+
+.navbar {
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	padding: 12px 24px;
+
+	background: rgba(15, 23, 42, 0.8);
+	backdrop-filter: blur(10px);
+
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.logo {
+	font-size: 25px;
+	font-weight: bold;
+
+	background: white;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.nav-center {
+	display: flex;
+	gap: 24px;
+}
+
+.nav-center a {
+	text-decoration: none;
+	color: #cbd5f5;
+	font-size: 16px;
+	transition: all 0.2s ease;
+}
+
+.nav-center a:hover {
+	color: #77b4ff;
+}
+
+.nav-right {
+	display: flex;
+	align-items: center;
+}
+
+.nav-btn {
+	background: red;
+	color: white;
+	font-weight: 600;
+	border: none;
+	padding: 6px 14px;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 15px;
+	transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+	transform: scale(1.05);
+}
