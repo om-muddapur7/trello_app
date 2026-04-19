@@ -43,7 +43,7 @@
         }
 
         .card-header {
-            background: #1461b8;
+            background: linear-gradient(135deg, #1677ff, #4096ff);
             color: white;
             padding: 15px;
             font-size: 18px;
@@ -86,15 +86,81 @@
         button:hover {
             background: #b42222;
         }
+
+        #org-card-input {
+            background: white;
+            border: 2px dashed #1677ff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .card-header-input {
+            background: #1461b8;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .card-body-input {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .input-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-field label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .input-field input {
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1.5px solid #666;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .input-field input:focus {
+            border-color: #146cb8;
+            box-shadow: 0 0 0 3px rgba(20, 108, 184, 0.1);
+        }
+
+        .input-field input:hover {
+            border-color: #888;
+        }
+
+        #submitbtn{
+            background-color: green;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 0.5;
+            padding: 10px;
+        }
+
+        #submitbtn:hover {
+            background: #22b42e;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 id="title">Organizations</h1>
 
-        <div class="cards" id="cards">
-            
+        <div class="cards" id="cards"> 
+
         </div>
+
     </div>
 
     <script defer>
@@ -133,6 +199,29 @@
                         </div>
                     `;
                 }
+
+                document.getElementById("cards").innerHTML += `
+                    <div id="org-card-input">
+                        <div class="card-header-input">
+                            Add new organization
+                        </div>
+
+                        <div class="card-body-input">
+                            <div class="input-field">
+                                <label for="Inptitle">Title: </label>
+                                <input type="text" id="Inptitle">
+                            </div>
+
+                            <div class="input-field">
+                                <label for="description">Description: </label>
+                                <input type="text" id="description">
+                            </div>
+
+                            <button onclick="addOrg()" id="submitbtn">Add organization</button>
+                        </div>
+                    </div>
+                `;
+
             }
             catch(error){
                 console.log("Fetch Org's failed", error);
@@ -148,6 +237,27 @@
         function removeMember(event, memberId) {
             event.stopPropagation();  //  prevents card click
             console.log("Remove member:", memberId);
+        }
+
+        async function addOrg(){
+            const title = document.getElementById("Inptitle").value;
+            const description = document.getElementById("description").value;
+
+            try{
+                const response = await axios.post(`${window.location.origin}/add_organization`,
+                {title, description},
+                {
+                    headers: {
+                        token: localStorage.getItem("token")
+                    }
+                });
+
+                alert("Adding new Organization. Please reload..");
+            }
+            catch(error){
+                console.log("Add Org failed", error);
+                alert('Something went wrong.');
+            }
         }
 
         getOrgs();
