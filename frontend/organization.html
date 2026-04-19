@@ -7,10 +7,11 @@
     <title>Organization</title>
 
     <style>
-      body {
+        body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #e0ecfa, #f0f9fd);
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a, #1e293b, #020617);
         }
 
         .container {
@@ -19,27 +20,38 @@
 
         #title {
             text-align: center;
-            color: #222;
+            font-size: 42px;
+            font-weight: 700;
             margin-bottom: 30px;
+
+            background: #72b1fe;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            text-shadow: 0 4px 20px rgba(96, 165, 250, 0.25);
         }
 
         .cards {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 80px;
+            gap: 30px;
             padding: 10px;
         }
 
         #org-card {
             background: white;
-            border: 2px solid #146cb8;
             border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+
+            border: 1px solid #1677ff;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+
+            transition: all 0.25s ease;
         }
 
-        #org-card:hover{
-            transform: translateY(-2px);
+        #org-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.12);
         }
 
         .card-header {
@@ -53,42 +65,76 @@
 
         .card-body {
             padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .card-body h3 {
-            margin: 6px 0;
-            font-size: 16px;
+            margin: 4px 0;
+            font-size: 14px;
             color: #333;
         }
 
         .card-body ul {
-            padding-left: 18px;
-            margin-top: 8px;
+            padding-left: 0;
+            margin-top: 6px;
         }
 
         .card-body li {
+            list-style: none;
             display: flex;
             justify-content: space-between;
-            margin-bottom: 6px;
-            font-size: 14px;
+            align-items: center;
+            background: #f9fafb;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 13px;
         }
 
         button {
-            background: red;
             border: none;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 6px;
-            cursor: pointer;
+            border-radius: 8px;
+            padding: 6px 12px;
             font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        button:hover {
-            background: #b42222;
+        .card-body li button {
+            background: #ff4d4f;
+            color: white;
+        }
+
+        .card-body li button:hover {
+            background: #d9363e;
+        }
+
+        #addMembtn {
+            background: #1677ff;
+            color: white;
+        }
+
+        #addMembtn:hover {
+            background: #0958d9;
+        }
+
+        #delOrgbtn {
+            background: #111827;
+            color: white;
+        }
+
+        #delOrgbtn:hover {
+            background: #000;
+        }
+
+        .card-body > button {
+            width: 100%;
+            margin-top: 5px;
         }
 
         #org-card-input {
-            background: white;
+            background: #f9fbff;
             border: 2px dashed #1677ff;
             border-radius: 14px;
             overflow: hidden;
@@ -96,7 +142,7 @@
         }
 
         .card-header-input {
-            background: #1461b8;
+            background: linear-gradient(135deg, #1677ff, #4096ff);
             color: white;
             padding: 15px;
             font-size: 18px;
@@ -118,7 +164,7 @@
         }
 
         .input-field label {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             color: #444;
         }
@@ -126,34 +172,117 @@
         .input-field input {
             padding: 10px 12px;
             border-radius: 8px;
-            border: 1.5px solid #666;
+            border: 1.5px solid #ccc;
             outline: none;
             font-size: 14px;
+            background: #fafafa;
+            transition: all 0.2s ease;
         }
 
         .input-field input:focus {
-            border-color: #146cb8;
-            box-shadow: 0 0 0 3px rgba(20, 108, 184, 0.1);
+            border-color: #1677ff;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.1);
         }
 
         .input-field input:hover {
             border-color: #888;
         }
 
-        #submitbtn{
-            background-color: green;
+        #submitbtn {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
             font-size: 14px;
             font-weight: bold;
-            letter-spacing: 0.5;
             padding: 10px;
         }
 
         #submitbtn:hover {
-            background: #22b42e;
+            transform: scale(1.03);
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 12px 24px;
+
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+
+            background: white;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-center a {
+            text-decoration: none;
+            color: #cbd5f5;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-center a:hover {
+            color: #77b4ff;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-btn {
+            background: red;
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
+
 <body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <span class="logo">Trello</span>
+        </div>
+
+        <div class="nav-center">
+            <a href="#">Dashboard</a>
+            <a href="#">Organizations</a>
+            <a href="#">Boards</a>
+        </div>
+
+        <div class="nav-right">
+            <button class="nav-btn" onclick="signout()">Logout</button>
+        </div>
+    </nav>
+
     <div class="container">
         <h1 id="title">Organizations</h1>
 
@@ -186,15 +315,17 @@
                                 <h3><b>Title:</b>  ${org[i].title}</h3> 
                                 <h3><b>Description:</b>  ${org[i].description}</h3>
                                 <h3><b>Admin ID:</b>  ${org[i].admin}</h3> 
-                                <h3><b>Members</b></h3>
+                                <h3><b>Members: </b></h3>
                                 <ul>
                                     ${org[i].members.map(m => `
                                         <li data-id="${m.id}">
                                             ${m.username}
-                                            <button onclick="removeMember(event, '${m.id}')">Remove</button>
+                                            <button onclick="removeMember(event, '${m.id}', '${m.username}', '${org[i].id}')">Remove</button>
                                         </li>
                                     `).join("")}
                                 </ul>
+                                <button onclick="addMember(event, '${org[i].id}')" id="addMembtn">Add members</button>
+                                <button onclick="deleteOrg(event, '${org[i].id}')" id="delOrgbtn">Delete organization</button>
                             </div>
                         </div>
                     `;
@@ -234,14 +365,98 @@
             window.location.href = `board.html?orgId=${orgId}`;
         }
 
-        function removeMember(event, memberId) {
+        async function deleteOrg(event, orgId){
             event.stopPropagation();  //  prevents card click
-            console.log("Remove member:", memberId);
+
+            try {
+                const response = await axios.delete(`${window.location.origin}/delete_organization`, 
+                {
+                    data: {
+                        organizationId: orgId
+                    },
+                    headers: {
+                        token: localStorage.getItem("token")
+                    }
+                });
+
+                alert("Org deleted. Please reload ...");
+
+            } catch (error) {
+                console.log("Delete Org failed", error);
+                alert('Something went wrong.');
+            }
+        }
+
+        async function addMember(event, orgId){
+            event.stopPropagation();  //  prevents card click
+
+            const memUserUsername = prompt("Enter member username:");
+            if (!memUserUsername) return;
+
+            try {
+                const response = await axios.post(`${window.location.origin}/add-mem-to-organization`, {
+                    organizationId: orgId,
+                    memUserUsername
+                }, {
+                    headers: {
+                        token: localStorage.getItem("token")
+                    }
+                });
+
+                const memId = response.data.id;
+
+                const memberList = event.target.closest(".card-body").querySelector("ul");
+
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    ${memUserUsername}
+                    <button onclick="removeMember(event, '${memId}', '${memUserUsername}', '${orgId}')">Remove</button>
+                `;
+
+                memberList.appendChild(li);
+
+                alert("Member added");
+
+            } catch (error) {
+                console.log("Add Member failed", error);
+                alert('Something went wrong.');
+            }
+        }
+
+        async function removeMember(event, memberId, memUsername, orgId) {
+            event.stopPropagation();  //  prevents card click
+
+            const organizationId = orgId;
+            const memUserUsername = memUsername;
+            
+            try{
+                const response = await axios.delete(`${window.location.origin}/delete_members`,
+                {
+                    data: { 
+                        organizationId: organizationId,
+                        memUserUsername: memUserUsername
+                    },
+                    headers: {
+                        token: localStorage.getItem("token")
+                    }
+                });
+
+                alert("Deleted member. Please reload..");
+            }
+            catch(error){
+                console.log("Delete Member failed", error);
+                alert('Something went wrong.');
+            }
         }
 
         async function addOrg(){
             const title = document.getElementById("Inptitle").value;
             const description = document.getElementById("description").value;
+
+            if (!title || !description) {
+                alert("Fill all fields");
+                return;
+            }
 
             try{
                 const response = await axios.post(`${window.location.origin}/add_organization`,
@@ -258,6 +473,13 @@
                 console.log("Add Org failed", error);
                 alert('Something went wrong.');
             }
+        }
+
+        function signout(){
+            localStorage.removeItem("token");
+
+            alert("Signing out...");
+            window.location = '/signin';
         }
 
         getOrgs();

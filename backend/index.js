@@ -127,7 +127,8 @@ app.post("/add-mem-to-organization", authMiddleware,  async (req, res) => {
     );
 
     res.json({
-        message: "new member added!"
+        message: "new member added!",
+        id: memberuser._id
     })
     
 })
@@ -360,7 +361,32 @@ app.put("/issues", authMiddleware, async (req, res) => {
 })
 
 //DELETE
-app.delete("/members", authMiddleware, async (req, res) => {
+app.delete("/delete_organization", authMiddleware,  async (req, res) => {
+    const userId = req.userId;
+    const organizationId = req.body.organizationId;
+
+    const organization = await organizationModel.findOne({
+        _id: organizationId
+    })
+
+    if(!organization || organization.admin.toString() != userId){
+        res.status(411).json({
+            message: "Either org doesnt exist or you are not the admin"
+        })
+        return;
+    }
+
+    await organizationModel.deleteOne({
+        _id: organizationId
+    });
+
+    res.json({
+        message: "Organization deleted"
+    })
+    
+})
+
+app.delete("/delete_members", authMiddleware, async (req, res) => {
     const userId = req.userId;
     const organizationId = req.body.organizationId;
     const memUserUsername = req.body.memUserUsername;
