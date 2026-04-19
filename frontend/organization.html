@@ -273,9 +273,8 @@
         </div>
 
         <div class="nav-center">
-            <a href="#">Dashboard</a>
+            <a href="#">Home</a>
             <a href="#">Organizations</a>
-            <a href="#">Boards</a>
         </div>
 
         <div class="nav-right">
@@ -295,6 +294,10 @@
     <script defer>
 
         async function getOrgs(){
+
+            const cards = document.getElementById("cards");
+            let html = "";
+
             try{
                 const response = await axios.get(`${window.location.origin}/api/organization`, {
                     headers: {
@@ -305,7 +308,7 @@
                 const org = response.data.organizations;
 
                 for(let i=0; i<org.length; i++){
-                    document.getElementById("cards").innerHTML += `
+                    html += `
                         <div id="org-card" onclick="openOrg('${org[i].id}')">
                             <div class="card-header">
                                 Organization ${i + 1}
@@ -331,7 +334,7 @@
                     `;
                 }
 
-                document.getElementById("cards").innerHTML += `
+                html += `
                     <div id="org-card-input">
                         <div class="card-header-input">
                             Add new organization
@@ -353,15 +356,18 @@
                     </div>
                 `;
 
+                cards.innerHTML = html;
+
             }
             catch(error){
                 console.log("Fetch Org's failed", error);
                 alert('Something went wrong.');
+                showToast("Something went wrong.", "error");
             }
         }
 
-        function openOrg(orgId){
-            alert("Opening Org: ", orgId);
+        function openOrg(orgId) {
+            alert("Opening Org");
             window.location.href = `board.html?orgId=${orgId}`;
         }
 
