@@ -14,8 +14,31 @@ async function getOrgs() {
 
 		const org = response.data.organizations;
 
-		for (let i = 0; i < org.length; i++) {
+		if (!org || org.length === 0) {
 			html += `
+                    <div id="org-card-input">
+                        <div class="card-header-input">
+                            Add new organization
+                        </div>
+
+                        <div class="card-body-input">
+                            <div class="input-field">
+                                <label for="Inptitle">Title: </label>
+                                <input type="text" id="Inptitle">
+                            </div>
+
+                            <div class="input-field">
+                                <label for="description">Description: </label>
+                                <input type="text" id="description">
+                            </div>
+
+                            <button onclick="addOrg()" id="submitbtn">Add organization</button>
+                        </div>
+                    </div>
+                `;
+		} else {
+			for (let i = 0; i < org.length; i++) {
+				html += `
                         <div id="org-card" onclick="openOrg('${org[i].id}')">
                             <div class="card-header">
                                 Organization ${i + 1}
@@ -43,9 +66,9 @@ async function getOrgs() {
                             </div>
                         </div>
                     `;
-		}
+			}
 
-		html += `
+			html += `
                     <div id="org-card-input">
                         <div class="card-header-input">
                             Add new organization
@@ -66,12 +89,13 @@ async function getOrgs() {
                         </div>
                     </div>
                 `;
+		}
 
 		cards.innerHTML = html;
+		
 	} catch (error) {
 		console.log("Fetch Org's failed", error);
 		alert("Something went wrong.");
-		showToast("Something went wrong.", "error");
 	}
 }
 

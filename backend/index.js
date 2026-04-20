@@ -199,12 +199,6 @@ app.get("/api/organization", authMiddleware, async (req, res) => {
         admin: userId
     });
 
-    if (!organizations || organizations.length === 0) {
-        return res.status(411).json({
-            message: "No organizations found"
-        });
-    }
-
     const result = [];
 
     for (let i = 0; i < organizations.length; i++) {
@@ -227,7 +221,7 @@ app.get("/api/organization", authMiddleware, async (req, res) => {
     }
 
     res.json({
-        organizations: result   
+        organizations: result  
     });
 });
 
