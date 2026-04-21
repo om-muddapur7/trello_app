@@ -6,7 +6,6 @@
 		<title>Home</title>
 
 		<style>
-			/* ===== GLOBAL ===== */
 			body {
 				margin: 0;
 				font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -16,7 +15,6 @@
 				color: #e2e8f0;
 			}
 
-			/* ===== NAVBAR ===== */
 			.navbar {
 				position: sticky;
 				top: 0;
@@ -71,17 +69,15 @@
 				transform: scale(1.05);
 			}
 
-			/* ===== CONTAINER ===== */
 			.container {
 				flex: 1;
 				padding: 40px 60px;
 
 				display: flex;
-				flex-direction: column; /* 🔥 KEY CHANGE */
+				flex-direction: column; 
 				gap: 28px;
 			}
 
-			/* ===== CARDS (GLASS UI) ===== */
 			.title-card,
 			.orgs-card,
 			.brd-card,
@@ -99,14 +95,12 @@
 				transition: all 0.25s ease;
 			}
 
-			/* Content layout */
 			.card-content {
 				display: flex;
 				gap: 20px;
 				align-items: center;
 			}
 
-			/* Image styling */
 			.card-content img {
 				width: 180px;
 				height: 140px;
@@ -116,7 +110,6 @@
 				box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 			}
 
-			/* Text */
 			.card-text {
 				flex: 1;
 			}
@@ -128,7 +121,6 @@
 				transform: translateY(-6px);
 			}
 
-			/* ===== TITLE CARD ===== */
 			.title-card {
 				grid-column: span 2;
 				text-align: center;
@@ -148,7 +140,6 @@
 				opacity: 0.85;
 			}
 
-			/* ===== OTHER CARDS ===== */
 			.orgs-card h2,
 			.brd-card h2,
 			.issues-card h2 {
@@ -164,7 +155,6 @@
 				color: #cbd5f5;
 			}
 
-			/* ===== CARD ACCENT COLORS ===== */
 			.orgs-card {
 				border-left: 4px solid #1677ff;
 			}
@@ -177,7 +167,6 @@
 				border-left: 4px solid #22c55e;
 			}
 
-			/* ===== FOOTER ===== */
 			.footer {
 				margin-top: 40px;
 				padding: 20px 40px;
@@ -196,7 +185,6 @@
 				flex-wrap: wrap;
 			}
 
-			/* Social Links */
 			.social-links a {
 				margin-right: 16px;
 				text-decoration: none;
@@ -209,13 +197,11 @@
 				color: #60a5fa;
 			}
 
-			/* Copyright */
 			.footer p {
 				font-size: 13px;
 				margin: 0;
 			}
 
-			/* ===== RESPONSIVE ===== */
 			@media (max-width: 768px) {
 				.container {
 					padding: 20px;
