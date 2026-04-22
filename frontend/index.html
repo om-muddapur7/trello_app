@@ -3,196 +3,19 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+		/>
+		<link rel="stylesheet" href="./styles/index.css">
 		<title>Home</title>
 
-		<style>
-			body{
-				margin: 0%;
-				min-height: 100vh;
-				font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
-				background: linear-gradient(135deg, #0f172a, #1e293b, #020617);
-				color: white;
-			}
-
-			.navbar {
-				position: sticky;
-				top: 0;
-				z-index: 1000;
-
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-
-				padding: 12px 24px;
-
-				background: rgba(15, 23, 42, 0.8);
-				backdrop-filter: blur(10px);
-
-				border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-			}
-
-			.logo {
-				font-size: 25px;
-				font-weight: bold;
-
-				background: white;
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-			}
-
-			.nav-center {
-				display: flex;
-				gap: 24px;
-			}
-
-			.nav-center a {
-				text-decoration: none;
-				color: #cbd5f5;
-				font-size: 16px;
-				transition: all 0.2s ease;
-			}
-
-			.nav-center a:hover {
-				color: #77b4ff;
-			}
-
-			.nav-right {
-				display: flex;
-				align-items: center;
-			}
-
-			.nav-btn {
-				background: red;
-				color: white;
-				font-weight: 600;
-				border: none;
-				padding: 6px 14px;
-				border-radius: 8px;
-				cursor: pointer;
-				font-size: 15px;
-				transition: all 0.2s ease;
-			}
-
-			.nav-btn:hover {
-				transform: scale(1.05);
-			}
-
-			.title-card{
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-			}
-
-			#head-title{
-				font-size: 200px;
-				font-weight: 700;
-				margin-bottom: 10px;
-				margin-top: 30px;
-				letter-spacing: 0.5;
-				text-align: center;
-				background: #72b1fe;
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-				text-shadow: 0 4px 20px rgba(96, 165, 250, 0.25);
-			}
-
-			#head-para{
-				font-size: 20px;
-				max-width: 800px;
-				color: #cbd5f5;
-				text-align: center;
-			}
-
-			.container{
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				padding: 20px;
-			}
-
-			.card{
-				display: flex;
-				flex-direction: column;
-				
-			}
-
-			h2{
-				text-align: center;
-				margin-top: 50px;
-				margin-bottom: 30px;
-				font-size: 36px;
-			}
-
-			.card-content{
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-			}
-
-			img{
-				height: 450px;
-				width: 650px;
-				border-radius: 10px;
-			}
-
-			img:hover{
-				transform: scale(1.1);
-			}
-
-			p{
-				font-size: 22px;
-				max-width: 700px;
-				color: #cbd5f5;
-				padding: 20px;
-			}
-
-			footer{
-				padding: 0px 30px;
-				display: flex;
-				justify-content: space-evenly;
-				align-items: center;
-				bottom: 0;
-				z-index: 1000;
-
-				background: rgba(15, 23, 42, 0.8);
-				backdrop-filter: blur(10px);
-
-				border-top: 1px solid rgba(255, 255, 255, 0.08);
-			}
-
-			footer p{
-				color: white;
-				font-size: 14px;
-			}
-
-			.social-links{
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				gap: 20px;
-			}
-
-			.social-links a {
-				color: #fff;
-				font-size: 20px;
-				transition: 0.3s;
-			}
-
-			.social-links a:hover {
-				color: #00adb5;
-				transform: scale(1.2);
-			}
-
-
-		</style>
 	</head>
 
 	<body>
 		<nav class="navbar">
 			<div class="nav-left">
-				<span class="logo">Trello</span>
+				<span class="logo">Trackly</span>
 			</div>
 
 			<div class="nav-center">
@@ -208,12 +31,23 @@
 		</nav>
 
 		<div class="title-card">
-			<h1 id="head-title">Trello</h1>
+			<h1 id="head-title">Trackly</h1>
 			<p id="head-para">
-				Manage your work efficiently with a simple and powerful workflow
-				system. Create organizations, organize boards, and track issues
-				seamlessly — all in one place.
+				Manage your work efficiently with a simple and powerful workflow system.
+				Create organizations, organize boards, and track issues seamlessly — all
+				in one place.
 			</p>
+
+			<div class="hero-actions">
+				<button class="primary-btn">Get Started</button>
+				<button class="secondary-btn">Explore</button>
+			</div>
+
+			<div class="floating-icons">
+				<span>⚡</span>
+				<span>💻</span>
+				<span>📌</span>
+			</div>
 		</div>
 
 		<div class="container">
@@ -285,7 +119,7 @@
 		</div>
 
 		<footer class="footer">
-			<p>© 2026 Trello Clone. All rights reserved.</p>
+			<p>© 2026 Trackly. All rights reserved.</p>
 
 			<div class="footer-content">
 				<div class="social-links">
@@ -294,8 +128,6 @@
 					<a href="#" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
 				</div>
 			</div>
-
 		</footer>
-
 	</body>
 </html>
