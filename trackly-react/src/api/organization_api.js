@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const API = "http://localhost:3000";
 
@@ -28,10 +29,10 @@ export const deleteOrg = async (orgId) => {
 			},
 		);
 
-		alert("Org deleted. ");
+		toast.success("Org deleted. ");
 	} catch (error) {
 		console.log("Delete Org failed", error);
-		alert("Something went wrong.");
+		toast.error("Something went wrong.");
 	}
 }
 
@@ -55,7 +56,7 @@ export const addMember = async (orgId, memUserUsername) => {
 
 	} catch (error) {
 		console.log("Add Member failed", error);
-		alert("Something went wrong.");
+		toast.error("Something went wrong.");
 	}
 }
 
@@ -78,11 +79,11 @@ export const removeMember = async(memberId, memUsername, orgId) => {
 				},
 			},
 		);
+		toast.success("Deleted member.");
 
-		alert("Deleted member.");
 	} catch (error) {
 		console.log("Delete Member failed", error);
-		alert("Something went wrong.");
+		toast.error("Something went wrong.");
 	}
 }
 
@@ -103,10 +104,11 @@ export const addOrg = async(title, description) => {
 				},
 			},
 		);
-
-		alert("Adding new Organization.");
+		toast.success("Adding new Organization.");
+		return response.data;
+		
 	} catch (error) {
 		console.log("Add Org failed", error);
-		alert("Something went wrong.");
+		toast.error("Something went wrong.");
 	}
 }

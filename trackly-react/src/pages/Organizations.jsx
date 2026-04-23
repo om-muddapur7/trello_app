@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer";
@@ -17,7 +18,7 @@ const Organization = () => {
 
     //opening ORG
 	const openOrg = (orgId) => {
-		alert("Opening Org");
+		toast.info("Opening Org");
 		navigate(`/board/${orgId}`);
 	};
 
@@ -35,7 +36,7 @@ const Organization = () => {
 			const response = await addMember(orgId, username);
 
             if (!response || !response.id) {
-                alert("Failed to add member");
+                toast.error("Failed to add member");
                 return;
             }
 
@@ -54,10 +55,10 @@ const Organization = () => {
 						: org,
 				),
 			);
-			alert("member added");
+			toast.success("member added");
 		} catch (error) {
 			console.log(error);
-			alert("Error adding member");
+			toast.error("Error adding member");
             throw error;
 		}
 	};
@@ -85,17 +86,29 @@ const Organization = () => {
     // ADD orgs
 	const handleAddOrg = async () => {
 		try {
-			await addOrg(title, description);
+			const response = await addOrg(title, description);
+
+			if (!response || !response.id) {
+                toast.error("Failed to add organization");
+                return;
+            }
+
+			const newOrg = {
+                id: response.id,
+                title: response.title,
+				description: response.description,
+				admin: response.admin,
+				members: []   
+            };
 
 			setOrgs((prev) => [
-				...prev,
-				{ id: Date.now(), title, description, members: [] },
+				...prev, newOrg,
 			]);
 
 			setTitle("");
 			setDescription("");
 		} catch (error) {
-			console.log(err);
+			console.log(error);
 		}
 	};
 

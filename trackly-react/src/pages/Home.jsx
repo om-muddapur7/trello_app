@@ -31,7 +31,7 @@ function Home() {
         <div className="card">
           <h2>Organizations</h2>
           <div className="card-content">
-            <img src="public/62a844ed71fde9b186402214_1ccf48_9013a438fa5a4ca39fa6dd207c5976fc_mv2.jpg" alt="Organizations" />
+            <img src="/62a844ed71fde9b186402214_1ccf48_9013a438fa5a4ca39fa6dd207c5976fc_mv2.jpg" alt="Organizations" />
             <div className="card-text">
               <p>Organizations help you group work based on teams, projects, or goals...</p>
               <p>Each organization allows you to manage members and control access.</p>
@@ -43,7 +43,7 @@ function Home() {
         <div className="card">
           <h2>Boards</h2>
           <div className="card-content">
-            <img src="public/3210.jpg" alt="Boards" />
+            <img src="/3210.jpg" alt="Boards" />
             <div className="card-text">
               <p>Boards exist inside organizations and help you break work into manageable sections.</p>
               <p>Use boards to visually organize tasks and track progress.</p>
@@ -55,7 +55,7 @@ function Home() {
         <div className="card">
           <h2>Issues</h2>
           <div className="card-content">
-            <img src="public/Kanban.jpg" alt="Issues" />
+            <img src="/Kanban.jpg" alt="Issues" />
             <div className="card-text">
               <p>Issues are the smallest unit of work — tasks you need to complete.</p>
               <p>Track progress using states like: <b>TODO → IN PROGRESS → DONE</b></p>
