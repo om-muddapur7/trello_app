@@ -8,20 +8,20 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.signin-page {
+.signup-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   background: linear-gradient(135deg, #0f172a, #1e293b, #020617);
 }
 
-.signin-page .main {
+.signup-page .main {
   display: flex;
   flex: 1;
   width: 100%;
 }
 
-.signin-page .left {
+.signup-page .left {
   flex: 1;
   background: linear-gradient(135deg, #1677ff, #4096ff);
   color: white;
@@ -32,13 +32,13 @@ body {
   box-shadow: inset -10px 0 30px rgba(0, 0, 0, 0.3);
 }
 
-.signin-page .left h1 {
+.signup-page .left h1 {
   font-size: 48px;
   font-weight: 800;
   margin: 0;
 }
 
-.signin-page .left p {
+.signup-page .left p {
   font-size: 17px;
   margin-top: 16px;
   max-width: 420px;
@@ -47,7 +47,7 @@ body {
   padding: 0;
 }
 
-.signin-page .right {
+.signup-page .right {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -55,7 +55,7 @@ body {
   padding: 20px;
 }
 
-.signin-page .container {
+.signup-page .container {
   width: 100%;
   max-width: 400px;
   display: flex;
@@ -70,29 +70,29 @@ body {
   transition: transform 0.25s ease;
 }
 
-.signin-page .container:hover {
+.signup-page .container:hover {
   transform: translateY(-3px);
 }
 
-.signin-page .container h1 {
+.signup-page .container h1 {
   color: #e2e8f0;
   text-align: center;
   margin-bottom: 10px;
 }
 
-.signin-page .input-field {
+.signup-page .input-field {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.signin-page .input-field label {
+.signup-page .input-field label {
   font-weight: 600;
   color: #cbd5e1;
   font-size: 14px;
 }
 
-.signin-page .input-field input {
+.signup-page .input-field input {
   padding: 12px 14px;
   border-radius: 10px;
   border: 1.5px solid rgba(255, 255, 255, 0.2);
@@ -103,17 +103,17 @@ body {
   transition: all 0.2s ease;
 }
 
-.signin-page .input-field input::placeholder {
+.signup-page .input-field input::placeholder {
   color: #94a3b8;
 }
 
-.signin-page .input-field input:focus {
+.signup-page .input-field input:focus {
   border-color: #1677ff;
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.2);
 }
 
-.signin-page .container button {
+.signup-page .container button {
   margin-top: 10px;
   padding: 14px;
   cursor: pointer;
@@ -126,42 +126,42 @@ body {
   transition: all 0.25s ease;
 }
 
-.signin-page .container button:hover {
+.signup-page .container button:hover {
   transform: scale(1.05);
   background: linear-gradient(135deg, #16a34a, #15803d);
 }
 
-.signin-page .container button:disabled {
+.signup-page .container button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
 }
 
-.signin-page .container > p {
+.signup-page .container > p {
   color: #e2e8f0;
   text-align: center;
   font-size: 14px;
 }
 
-.signin-page .container > p a {
+.signup-page .container > p a {
   color: #60a5fa;
   text-decoration: none;
 }
 
-.signin-page .container > p a:hover {
+.signup-page .container > p a:hover {
   text-decoration: underline;
 }
 
 @media (max-width: 900px) {
-  .signin-page .main {
+  .signup-page .main {
     flex-direction: column;
   }
 
-  .signin-page .left {
+  .signup-page .left {
     display: none;
   }
 
-  .signin-page .right {
+  .signup-page .right {
     padding: 20px;
   }
 }

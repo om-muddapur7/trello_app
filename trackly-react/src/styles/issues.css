@@ -6,7 +6,7 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
+} 
 
 body {
 	margin: 0;
@@ -148,6 +148,7 @@ button {
 
 	backdrop-filter: blur(10px);
 	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+	margin: 15px;
 }
 
 .card-header-input {
@@ -159,7 +160,7 @@ button {
 	text-align: center;
 }
 
-.card-body-input {
+ #issue-card-input .card-body-input {
 	padding: 15px;
 	display: flex;
 	flex-direction: column;

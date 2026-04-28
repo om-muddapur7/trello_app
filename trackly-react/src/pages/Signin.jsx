@@ -3,8 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-import Navbar from "../components/Navbar.jsx";
-import Footer from "../components/Footer";
 import "../styles/signin.css";
 
 const API = "http://localhost:3000";
@@ -35,7 +33,7 @@ const SignIn = () => {
 
       toast.success("User Signed in successfully");
 
-      navigate("/"); // ✅ enable navigation
+      navigate("/"); 
     } catch (error) {
       console.log("Signin failed", error);
       toast.error(error?.response?.data?.message || "Signin failed");
@@ -46,8 +44,6 @@ const SignIn = () => {
 
   return (
     <div className="signin-page">
-      <Navbar />
-
       <div className="main">
         <div className="left">
           <h1>Trackly App</h1>
@@ -95,8 +91,6 @@ const SignIn = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };
