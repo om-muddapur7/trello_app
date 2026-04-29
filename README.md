@@ -21,7 +21,7 @@ Trackly is a modern productivity web application designed to help users manage t
 
 **Frontend**
 
-* HTML5, CSS3, JavaScript
+* HTML5, CSS3, JavaScript, (React)
 * Responsive design principles
 
 **Backend (if applicable)**
