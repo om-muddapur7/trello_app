@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
+const bcrypt = require('bcrypt');
+
 const path = require('path');
 const cors = require("cors");
 app.use(cors());
@@ -34,9 +36,11 @@ app.post("/signup", async (req, res) => {
         })
     }
 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = await userModel.create({
         username: username,
-        password: password
+        password: hashedPassword
     })
 
     res.json({
@@ -53,7 +57,6 @@ app.post("/signin", async (req, res) => {
 
     const userExixts = await userModel.findOne({
         username: username,
-        password: password
     })
 
     if(!userExixts){
@@ -62,9 +65,17 @@ app.post("/signin", async (req, res) => {
         })
     }
 
+    const correctPassword = await bcrypt.compare(password, userExixts.password);
+
+    if (!correctPassword) {
+            return res.status(403).json({
+                message: "Invalid credentials"
+            });
+        }
+
     const token = jwt.sign({
         userId: userExixts.id
-    }, JWT_SECRET)
+    }, JWT_SECRET, {expiresIn: "1h"})
 
     res.json({
         token
@@ -85,7 +96,10 @@ app.post("/add_organization",authMiddleware, async (req, res) => {
 
     res.json({
         message: "Org created",
-        id: newOrg._id
+        id: newOrg._id,
+        title: newOrg.title,
+		description: newOrg.description,
+		admin: newOrg.admin
     })
 })
 
@@ -154,7 +168,10 @@ app.post("/add_board", authMiddleware, async (req, res) => {
     })
 
     res.json({
-        message: "New board added"
+        message: "New board added",
+        _id: newBoard._id,
+        title: newBoard.title,
+        organizationId: newBoard.organizationId
     })
 
 })
@@ -186,7 +203,11 @@ app.post("/add_issue", authMiddleware, async (req, res) => {
     })
 
     res.json({
-        message: "New issue added"
+        message: "New issue added",
+        _id: newIssue._id,
+        title: newIssue.title,
+        boardId: newIssue.boardId,
+        state: newIssue.state
     })
 })
 

@@ -2,7 +2,7 @@ function getBoardId() {
 	const params = new URLSearchParams(window.location.search);
 	return params.get("brdId");
 }
-
+ 
 const brdId = getBoardId();
 
 async function getIssues() {

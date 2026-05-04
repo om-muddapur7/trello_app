@@ -137,7 +137,7 @@ button {
 button:hover {
 	transform: scale(1.05);
 }
-
+ 
 button p {
 	margin: 0;
 	color: white;

@@ -158,7 +158,7 @@ async function addMember(event, orgId) {
                 `;
 
 		memberList.appendChild(li);
-
+ 
 		alert("Member added");
 	} catch (error) {
 		console.log("Add Member failed", error);

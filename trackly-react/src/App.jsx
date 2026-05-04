@@ -20,7 +20,6 @@ function App() {
 				<Route path="/board/:orgId" element={<Board />} />
 				<Route path="/issue/:brdId" element={<Issues />} />
 			</Routes>
-
 			<ToastContainer />
 		</BrowserRouter>
 	);

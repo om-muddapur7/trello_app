@@ -112,7 +112,7 @@ async function deleteBoard(event, brdId) {
 				},
 			},
 		);
-
+ 
 		alert("Board deleted. Please reload ...");
 	} catch (error) {
 		console.log("Delete Board failed", error);
