@@ -8,18 +8,45 @@ import SignIn from "./pages/Signin";
 import Organization from "./pages/Organizations";
 import Board from "./pages/Boards";
 import Issues from "./pages/Issues";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
+				<Route path="/" element={<Home />} />
 				<Route path="/signup" element={<SignUp />} />
 				<Route path="/signin" element={<SignIn />} />
-				<Route path="/" element={<Home />} />
-				<Route path="/organization" element={<Organization />} />
-				<Route path="/board/:orgId" element={<Board />} />
-				<Route path="/issue/:brdId" element={<Issues />} />
+
+				{/* Protected routes */}
+				<Route
+					path="/organization"
+					element={
+						<ProtectedRoute>
+							<Organization />
+						</ProtectedRoute>
+					}
+				/>
+
+				<Route
+					path="/board/:orgId"
+					element={
+						<ProtectedRoute>
+							<Board />
+						</ProtectedRoute>
+					}
+				/>
+
+				<Route
+					path="/issue/:brdId"
+					element={
+						<ProtectedRoute>
+							<Issues />
+						</ProtectedRoute>
+					}
+				/>
 			</Routes>
+
 			<ToastContainer />
 		</BrowserRouter>
 	);
