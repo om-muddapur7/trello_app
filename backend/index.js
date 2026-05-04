@@ -3,6 +3,7 @@ const app = express();
 app.use(express.json());
 
 const bcrypt = require('bcrypt');
+const z = require('zod');
 
 const path = require('path');
 const cors = require("cors");
@@ -20,11 +21,26 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 //end point -----------------------------------------------------------------------------------------
 
+//zod user data verify
+const signupSchema = z.object({
+    username: z.string().min(2),
+    password: z.string().min(6),
+})
+
 // CREATE
 //signup page
 app.post("/signup", async (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
+    const {data, success, error} = signupSchema.safeParse(req.body);
+
+    if(!success){
+        return res.status(403).json({
+            message: "Invalid user data. Password should be min of 6 characters",
+            error
+        })
+    }
+
+    const username = data.username;
+    const password = data.password;
 
     const userExixts = await userModel.findOne({
         username: username
