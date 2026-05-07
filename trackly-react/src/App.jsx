@@ -8,7 +8,7 @@ import SignIn from "./pages/Signin";
 import Organization from "./pages/Organizations";
 import Board from "./pages/Boards";
 import Issues from "./pages/Issues";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoutes from "./components/ProtectedRoutes";
 
 function App() {
 	return (
@@ -22,27 +22,27 @@ function App() {
 				<Route
 					path="/organization"
 					element={
-						<ProtectedRoute>
+						<ProtectedRoutes>
 							<Organization />
-						</ProtectedRoute>
+						</ProtectedRoutes>
 					}
 				/>
 
 				<Route
 					path="/board/:orgId"
 					element={
-						<ProtectedRoute>
+						<ProtectedRoutes>
 							<Board />
-						</ProtectedRoute>
+						</ProtectedRoutes>
 					}
 				/>
 
 				<Route
 					path="/issue/:brdId"
 					element={
-						<ProtectedRoute>
+						<ProtectedRoutes>
 							<Issues />
-						</ProtectedRoute>
+						</ProtectedRoutes>
 					}
 				/>
 			</Routes>

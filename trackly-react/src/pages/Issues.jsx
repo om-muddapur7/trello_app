@@ -152,6 +152,7 @@ const Issues = () => {
 										value={state}
 										onChange={(e) => setState(e.target.value)}
 									>
+										<option value="">Choose state</option>
 										<option value="TODO">TODO</option>
 										<option value="IN_PROGRESS">IN_PROGRESS</option>
 										<option value="DONE">DONE</option>
