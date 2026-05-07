@@ -40,6 +40,34 @@
 	color: #77b4ff;
 }
 
+.nav-links {
+	background: transparent;
+	border: none;
+	outline: none;
+	color: #ffffff;
+	font-size: 16px;
+	font-weight: 500;
+	cursor: pointer;
+	padding: 8px 14px;
+	border-radius: 8px;
+	transition: all 0.3s ease;
+	font-family: inherit;
+}
+
+.nav-links:hover {
+	background-color: rgba(255, 255, 255, 0.15);
+	color: #ffd369;
+	transform: translateY(-2px);
+}
+
+.nav-links:active {
+	transform: scale(0.96);
+}
+
+.nav-links:focus {
+	box-shadow: 0 0 0 2px rgba(255, 211, 105, 0.4);
+}
+
 .nav-right {
 	display: flex;
 	align-items: center;

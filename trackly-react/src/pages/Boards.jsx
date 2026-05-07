@@ -73,7 +73,7 @@ const Board = () => {
 			<Navbar />
 
 			<div className="container">
-				<h1 id="title">Boards</h1>
+				<h1 id="title">Projects</h1>
 
 				{!boards || boards.length === 0 ? (
 					<div className="cards" id="cards">
