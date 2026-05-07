@@ -11,9 +11,6 @@ const path = require('path');
 const cors = require("cors");
 app.use(cors());
 
-const frontend_path = path.join(__dirname, "..", "frontend");
-app.use(express.static(frontend_path));
-
 const jwt = require('jsonwebtoken');
 const {authMiddleware} = require('./middleware.js')
 const {userModel, organizationModel, boardModel, issueModel} = require('./models.js')
@@ -508,29 +505,6 @@ app.delete("/delete_members", authMiddleware, async (req, res) => {
 })
 
 // --------------------------------------------------------------------------------------------------
-app.get("/", (req, res) => {
-    res.sendFile(path.join(frontend_path, "index.html"));
-})
-
-app.get("/signup", (req, res) => {
-    res.sendFile(path.join(frontend_path, "signup.html"));
-})
-
-app.get("/signin", (req, res) => {
-    res.sendFile(path.join(frontend_path, "signin.html"));
-})
-
-app.get("/organization", (req, res) => {
-    res.sendFile(path.join(frontend_path, "organization.html"));
-})
-
-app.get("/board", (req, res) => {
-    res.sendFile(path.join(frontend_path, "board.html"));
-})
-
-app.get("/issues", (req, res) => {
-    res.sendFile(path.join(frontend_path, "issues.html"));
-})
 
 const PORT = process.env.PORT || 3000;
 
