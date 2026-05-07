@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const API = "http://localhost:3000";
+const API = "https://trackly-ad8e.onrender.com";
 
 // trial : board/69d3da7bc2db3265ae05a843
 
