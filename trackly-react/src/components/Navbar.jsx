@@ -43,15 +43,15 @@ function Navbar() {
 				</button>
 
 				<button className="nav-links" onClick={() => checkAuthAndNavigateO("/organization")}>
-					Organizations
+					Workspace
 				</button>
 
 				<button className="nav-links" onClick={() => checkAuthAndNavigate("/boards")}>
-					Boards
+					Projects
 				</button>
 
 				<button className="nav-links" onClick={() => checkAuthAndNavigate("/issues")}>
-					Issues
+					Tasks
 				</button>
 			</div>
 

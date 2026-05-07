@@ -85,7 +85,7 @@ const Issues = () => {
 			<Navbar />
 
 			<div className="container">
-				<h1 id="title">Issues</h1>
+				<h1 id="title">Tasks</h1>
 
 				<div className="cards" id="cards">
 					<div className="TODO">

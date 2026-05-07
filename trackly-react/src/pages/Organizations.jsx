@@ -142,7 +142,7 @@ const Organization = () => {
 		<>
 			<Navbar />
 			<div className="container">
-				<h1 id="title">Organizations</h1>
+				<h1 id="title">Workspace</h1>
 
 				{!orgs || orgs.length === 0 ? (
                     <div className="cards" id="cards">

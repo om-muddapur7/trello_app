@@ -40,33 +40,33 @@ function Home() {
 
 			<div className="container" ref={containerRef}>
 				<div className="card">
-					<h2>Organizations</h2>
+					<h2>Workspace</h2>
 					<div className="card-content">
 						<img src="/1img.png" alt="Organizations" />
 						<div className="card-text">
 							<p>
-								Organizations help you group work based on teams, projects, or
+								Workspace help you group work based on teams, projects, or
 								goals...
 							</p>
 							<p>
-								Each organization allows you to manage members and control
+								Each Workspace allows you to manage members and control
 								access.
 							</p>
-							<p>Think of an organization as your top-level workspace.</p>
+							<p>Think of an Workspace as your top-level organization.</p>
 						</div>
 					</div>
 				</div>
 
 				<div className="card">
-					<h2>Boards</h2>
+					<h2>Projects</h2>
 					<div className="card-content">
 						<img src="/2img.jpg" alt="Boards" />
 						<div className="card-text">
 							<p>
-								Boards exist inside organizations and help you break work into
+								Projects exist inside Workspace and help you break work into
 								manageable sections.
 							</p>
-							<p>Use boards to visually organize tasks and track progress.</p>
+							<p>Use Projects to visually organize tasks and track progress.</p>
 							<p>
 								Example: "Website Development", "Placement Prep", or "Hackathon
 								Project".
@@ -76,12 +76,12 @@ function Home() {
 				</div>
 
 				<div className="card">
-					<h2>Issues</h2>
+					<h2>Tasks</h2>
 					<div className="card-content">
 						<img src="/3img.png" alt="Issues" />
 						<div className="card-text">
 							<p>
-								Issues are the smallest unit of work — tasks you need to
+								Tasks are the smallest unit of work — tasks you need to
 								complete.
 							</p>
 							<p>
