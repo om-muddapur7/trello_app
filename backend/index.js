@@ -1,7 +1,9 @@
+require("dotenv").config();
+
 const express = require('express');
 const app = express();
 app.use(express.json());
-
+ 
 const bcrypt = require('bcrypt');
 const z = require('zod');
 
@@ -15,8 +17,6 @@ app.use(express.static(frontend_path));
 const jwt = require('jsonwebtoken');
 const {authMiddleware} = require('./middleware.js')
 const {userModel, organizationModel, boardModel, issueModel} = require('./models.js')
-require("dotenv").config();
-
 const JWT_SECRET = process.env.JWT_SECRET;
 
 //end point -----------------------------------------------------------------------------------------
