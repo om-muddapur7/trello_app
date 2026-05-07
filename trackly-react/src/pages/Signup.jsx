@@ -5,7 +5,7 @@ import axios from "axios";
 
 import "../styles/signup.css";
 
-const API = "http://localhost:3000";
+const API = import.meta.env.VITE_API;
 
 const SignUp = () => {
   const navigate = useNavigate();

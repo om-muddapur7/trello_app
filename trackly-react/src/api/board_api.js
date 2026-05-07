@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const API = "https://trackly-ad8e.onrender.com";
+const API = import.meta.env.VITE_API;
 
 // trial : board/69d3da7bc2db3265ae05a843
 

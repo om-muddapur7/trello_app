@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const API = "http://localhost:3000";
+const API = import.meta.env.VITE_API;
 
 //http://localhost:5173/issue/69d49ac4acb0ab32b0c5d70c
 

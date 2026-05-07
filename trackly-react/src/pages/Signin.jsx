@@ -5,7 +5,7 @@ import axios from "axios";
 
 import "../styles/signin.css";
 
-const API = "https://trackly-ad8e.onrender.com";
+const API = import.meta.env.VITE_API;
 
 const SignIn = () => {
   const navigate = useNavigate();

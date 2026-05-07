@@ -9,13 +9,10 @@ function Footer() {
 
 			<div className="footer-content">
 				<div className="social-links">
-					<a href="#" target="_blank" rel="noreferrer">
+					<a href="https://github.com/om-muddapur7" target="_blank" rel="noreferrer">
 						<i className="fa-brands fa-github"></i>
 					</a>
-					<a href="#" target="_blank" rel="noreferrer">
-						<i className="fa-brands fa-linkedin"></i>
-					</a>
-					<a href="#" target="_blank" rel="noreferrer">
+					<a href="https://x.com/Om7248" target="_blank" rel="noreferrer">
 						<i className="fa-brands fa-x-twitter"></i>
 					</a>
 				</div>
