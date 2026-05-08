@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 function Navbar() {
 	const navigate = useNavigate();
+	const token = localStorage.getItem("token");
 
 	const signout = () => {
 		localStorage.removeItem("token");
@@ -56,12 +57,15 @@ function Navbar() {
 			</div>
 
 			<div className="nav-right">
-				<button className="nav-btn" onClick={signout}>
+				{
+					token && 
+					<button className="nav-btn" onClick={signout}>
 					Logout
-				</button>
+					</button>
+				}
 			</div>
 		</nav>
 	);
 }
-
+ 
 export default Navbar;
