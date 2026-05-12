@@ -21,6 +21,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 //zod user data verify
 const signupSchema = z.object({
     username: z.string().min(2),
+    email: z.email("Invalid email address"),
     password: z.string().min(6),
 })
 
@@ -37,6 +38,7 @@ app.post("/signup", async (req, res) => {
     }
 
     const username = data.username;
+    const email = data.email;
     const password = data.password;
 
     const userExixts = await userModel.findOne({
@@ -53,6 +55,7 @@ app.post("/signup", async (req, res) => {
 
     const newUser = await userModel.create({
         username: username,
+        email: email,
         password: hashedPassword
     })
 

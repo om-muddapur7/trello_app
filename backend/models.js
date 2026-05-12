@@ -12,6 +12,7 @@ mongoose.connect(MONGODB_URI, { family: 4 })
 //schema and models
 const userSchema = mongoose.Schema({
     username: String,
+    email : String,
     password: String
 })
 

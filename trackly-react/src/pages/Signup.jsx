@@ -12,10 +12,11 @@ const SignUp = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
   const signup = async () => {
-    if (!username || !password) {
+    if (!username || !password || !email) {
       toast.error("All fields are required");
       return;
     }
@@ -25,6 +26,7 @@ const SignUp = () => {
 
       const response = await axios.post(`${API}/signup`, {
         username,
+        email,
         password,
       });
       toast.success("User Signed in successfully");
@@ -60,6 +62,18 @@ const SignUp = () => {
                 id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && signin()}
+              />
+            </div>
+
+            <div className="input-field">
+              <label htmlFor="email">Email ID</label>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && signin()}
               />
             </div>
